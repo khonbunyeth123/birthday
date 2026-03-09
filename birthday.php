@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Bunyeth</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,7 +12,7 @@
         }
 
         body {
-            font-family: 'Quicksand', sans-serif;
+            font-family: Arial, sans-serif;
             background: #0a0a1a;
             overflow-y: auto;
             overflow-x: hidden;
@@ -22,7 +21,6 @@
             scroll-behavior: smooth;
         }
 
-        /* ========== STARS BACKGROUND ========== */
         .stars {
             position: fixed;
             width: 100%;
@@ -48,7 +46,6 @@
             50% { opacity: 1; }
         }
 
-        /* ========== OPENING FIREWORKS ========== */
         .fireworks-container {
             position: fixed;
             width: 100%;
@@ -73,60 +70,26 @@
         }
 
         @keyframes bigBurst {
-            0% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(0) rotate(0deg);
-            }
-            10% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(1) rotate(360deg);
-            }
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+            10% { opacity: 1; transform: translate(-50%, -50%) scale(1.2) rotate(0deg); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1) rotate(360deg); }
         }
 
         @keyframes particleFly {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1) rotate(0deg);
-            }
-            50% {
-                opacity: 1;
-                transform: translate(calc(var(--px) * 0.7), calc(var(--py) * 0.7)) scale(1.1) rotate(180deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--px), var(--py)) scale(0.2) rotate(360deg);
-            }
+            0% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: translate(calc(var(--px) * 0.7), calc(var(--py) * 0.7)) scale(1.1) rotate(180deg); }
+            100% { opacity: 0; transform: translate(var(--px), var(--py)) scale(0.2) rotate(360deg); }
         }
 
         @keyframes particleGlow {
-            0% {
-                filter: drop-shadow(0 0 15px rgba(255, 107, 157, 1)) drop-shadow(0 0 25px rgba(255, 200, 100, 0.8));
-            }
-            50% {
-                filter: drop-shadow(0 0 25px rgba(255, 107, 157, 1)) drop-shadow(0 0 40px rgba(255, 200, 100, 1));
-            }
-            100% {
-                filter: drop-shadow(0 0 0px rgba(255, 107, 157, 0)) drop-shadow(0 0 0px rgba(255, 200, 100, 0));
-            }
+            0% { filter: drop-shadow(0 0 15px rgba(255, 107, 157, 1)) drop-shadow(0 0 25px rgba(255, 200, 100, 0.8)); }
+            50% { filter: drop-shadow(0 0 25px rgba(255, 107, 157, 1)) drop-shadow(0 0 40px rgba(255, 200, 100, 1)); }
+            100% { filter: drop-shadow(0 0 0px rgba(255, 107, 157, 0)) drop-shadow(0 0 0px rgba(255, 200, 100, 0)); }
         }
 
         @keyframes shockwave {
-            0% {
-                width: 10px;
-                height: 10px;
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(0);
-            }
-            100% {
-                width: 10px;
-                height: 10px;
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(20);
-            }
+            0% { width: 10px; height: 10px; opacity: 1; transform: translate(-50%, -50%) scale(0); }
+            100% { width: 10px; height: 10px; opacity: 0; transform: translate(-50%, -50%) scale(20); }
         }
 
         .shockwave {
@@ -136,14 +99,16 @@
             animation: shockwave 0.8s ease-out;
         }
 
-        /* ========== MAIN CONTAINER ========== */
         .container {
             position: relative;
             z-index: 10;
             max-width: 700px;
             margin: 0 auto;
             opacity: 0;
-            animation: fadeInContent 0.8s ease-out 2.5s forwards;
+        }
+
+        .container.show {
+            animation: fadeInContent 0.8s ease-out forwards;
         }
 
         @keyframes fadeInContent {
@@ -151,7 +116,54 @@
             to { opacity: 1; }
         }
 
-        /* ========== CAKE AT TOP ========== */
+        .reveal-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(10, 10, 26, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 40;
+            cursor: pointer;
+        }
+
+        .reveal-overlay.hidden {
+            pointer-events: none;
+            animation: fadeOut 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        .click-prompt-text {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: bounce 1.5s ease-in-out infinite;
+            color: white;
+            text-align: center;
+        }
+
+        .click-prompt-icon {
+            font-size: 4rem;
+            animation: pulse-scale 1.5s ease-in-out infinite;
+            text-align: center;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
         .cake-section {
             display: flex;
             justify-content: center;
@@ -160,14 +172,8 @@
         }
 
         @keyframes cakeAppear {
-            from {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(-50px) scale(0.8); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .cake {
@@ -181,7 +187,6 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* ========== TEXT MESSAGES ========== */
         .messages-section {
             display: flex;
             flex-direction: column;
@@ -202,19 +207,12 @@
         .message-box:nth-child(3) { animation-delay: 0.7s; }
 
         @keyframes messageSlideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-            }
+            from { opacity: 0; transform: translateX(-50px) scale(0.9); }
+            to { opacity: 1; transform: translateX(0) scale(1); }
         }
 
         .message-text {
-            font-family: 'Caveat', cursive;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #333;
             font-weight: 400;
             line-height: 1.8;
@@ -231,7 +229,6 @@
             50% { transform: scale(1.15); }
         }
 
-        /* ========== PHOTO GALLERY ========== */
         .gallery-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -264,14 +261,8 @@
         .photo-frame:nth-child(2) { animation-delay: 1.1s; }
 
         @keyframes photoScaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .photo-frame:hover {
@@ -279,7 +270,6 @@
             box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
         }
 
-        /* ========== FINAL MESSAGE ========== */
         .final-message {
             text-align: center;
             margin-top: 40px;
@@ -287,18 +277,11 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .final-text {
-            font-family: 'Caveat', cursive;
             font-size: 1.8rem;
             color: white;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -310,7 +293,6 @@
             font-size: 2.2rem;
         }
 
-        /* ========== FLOATING ELEMENTS ========== */
         .floating-emoji {
             position: fixed;
             font-size: 2.5rem;
@@ -320,17 +302,10 @@
         }
 
         @keyframes floatAway {
-            0% {
-                opacity: 1;
-                transform: translateY(0) translateX(0) scale(1) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-200px) translateX(var(--tx)) scale(0) rotate(360deg);
-            }
+            0% { opacity: 1; transform: translateY(0) translateX(0) scale(1) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(-200px) translateX(var(--tx)) scale(0) rotate(360deg); }
         }
 
-        /* ========== CLICK FIREWORKS HEART ========== */
         .fireworks-heart {
             position: fixed;
             font-size: 3rem;
@@ -340,14 +315,8 @@
         }
 
         @keyframes heartExplode {
-            0% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0) rotate(360deg);
-            }
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0) rotate(360deg); }
         }
 
         .heart-particle {
@@ -356,7 +325,6 @@
             will-change: transform, opacity;
         }
 
-        /* ========== MUSIC BUTTON ========== */
         .music-btn {
             position: fixed;
             bottom: 30px;
@@ -388,66 +356,32 @@
             50% { box-shadow: 0 8px 40px rgba(255, 107, 157, 0.8); }
         }
 
-        /* ========== RESPONSIVE ========== */
         @media (max-width: 600px) {
-            .cake {
-                font-size: 100px;
-            }
-
-            .message-text {
-                font-size: 1.2rem;
-            }
-
-            .photo-frame {
-                font-size: 3.5rem;
-            }
-
-            .final-text {
-                font-size: 1.5rem;
-            }
-
-            .name-highlight {
-                font-size: 1.8rem;
-            }
-
-            .music-btn {
-                bottom: 20px;
-                right: 20px;
-                padding: 10px 18px;
-                font-size: 0.9rem;
-            }
-
-            .big-burst {
-                font-size: 5rem;
-            }
+            .cake { font-size: 100px; }
+            .message-text { font-size: 1.2rem; }
+            .photo-frame { font-size: 3.5rem; }
+            .final-text { font-size: 1.5rem; }
+            .name-highlight { font-size: 1.8rem; }
+            .music-btn { bottom: 20px; right: 20px; padding: 10px 18px; font-size: 0.9rem; }
+            .big-burst { font-size: 5rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Stars Background -->
     <div class="stars" id="starsContainer"></div>
-
-    <!-- Fireworks Container for opening -->
     <div class="fireworks-container" id="fireworksContainer"></div>
+    <div class="reveal-overlay" id="revealOverlay">
+        <div>
+            <div class="click-prompt-text">🎉 Click to Reveal! 🎉</div>
+            <div class="click-prompt-icon">💖</div>
+        </div>
+    </div>
 
-    <!-- Main Content -->
     <div class="container">
-        <!-- Birthday Cake -->
         <div class="cake-section">
             <div class="cake">🎂</div>
         </div>
 
-        <div class="final-message">
-            <p class="final-text">
-                Happy Birthday
-                <br>
-                <span class="name-highlight">KHON BUNYETH!</span>
-                <br>
-                <span style="font-size: 1.6rem;">🎉💖✨</span>
-            </p>
-        </div>
-
-        <!-- Messages Section -->
         <div class="messages-section">
             <div class="message-box">
                 <p class="message-text">
@@ -456,7 +390,6 @@
                     <span class="heart-emoji">💕</span>
                 </p>
             </div>
-
             <div class="message-box">
                 <p class="message-text">
                     <span class="heart-emoji">🎉</span>
@@ -464,7 +397,6 @@
                     <span class="heart-emoji">🎉</span>
                 </p>
             </div>
-
             <div class="message-box">
                 <p class="message-text">
                     <span class="heart-emoji">✨</span>
@@ -474,29 +406,29 @@
             </div>
         </div>
 
-        <!-- Photo Gallery -->
         <div class="gallery-section">
             <div class="photo-frame" id="frame1">📷</div>
             <div class="photo-frame" id="frame2">🖼️</div>
         </div>
 
-        <!-- Final Message -->
-        
+        <div class="final-message">
+            <p class="final-text">
+                Happy Birthday<br>
+                <span class="name-highlight">BUNYETH!</span><br>
+                <span style="font-size: 1.6rem;">🎉💖✨</span>
+            </p>
+        </div>
     </div>
 
-    <!-- Music Button -->
     <button class="music-btn" id="musicBtn">🎵 Play</button>
     <audio id="bg-music" loop>
         <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // ========== CREATE STARS ==========
         function createStars() {
             const starsContainer = document.getElementById('starsContainer');
-            const starCount = 80;
-
-            for (let i = 0; i < starCount; i++) {
+            for (let i = 0; i < 80; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
@@ -507,13 +439,11 @@
             }
         }
 
-        // ========== EPIC OPENING FIREWORKS ==========
         function createOpeningFireworks() {
             const container = document.getElementById('fireworksContainer');
             const centerX = window.innerWidth / 2;
             const centerY = window.innerHeight / 2;
 
-            // Create big burst hearts
             const burstHearts = ['💖', '💕', '💗', '💓', '💞'];
             for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
@@ -528,7 +458,6 @@
                 }, i * 150);
             }
 
-            // Create shockwaves
             for (let i = 0; i < 3; i++) {
                 setTimeout(() => {
                     const shock = document.createElement('div');
@@ -540,7 +469,6 @@
                 }, i * 200);
             }
 
-            // Create massive particle explosion
             const particleCount = 40;
             const hearts = ['💕', '💖', '✨', '💗', '💓', '💞', '💝', '💘', '🎉', '🌟', '✨', '💫'];
             
@@ -562,12 +490,10 @@
                     particle.style.animation = `particleFly ${Math.random() * 0.8 + 1.2}s ease-out forwards, particleGlow ${Math.random() * 0.8 + 1.2}s ease-out forwards`;
                     particle.style.animationDelay = (i * 0.03) + 's';
                     container.appendChild(particle);
-
                     setTimeout(() => particle.remove(), 2000);
                 }, 100 + i * 30);
             }
 
-            // Create secondary burst
             setTimeout(() => {
                 for (let i = 0; i < 20; i++) {
                     const angle = (Math.PI * 2 * i) / 20;
@@ -585,16 +511,13 @@
                     particle.style.setProperty('--py', py + 'px');
                     particle.style.animation = `particleFly 1s ease-out forwards`;
                     container.appendChild(particle);
-
                     setTimeout(() => particle.remove(), 1000);
                 }
             }, 600);
         }
 
-        // ========== FLOATING EMOJIS ==========
         function createFloatingEmojis() {
             const emojis = ['💕', '💖', '✨', '🎉', '🌟', '🎈'];
-            
             for (let i = 0; i < 6; i++) {
                 setTimeout(() => {
                     const emoji = document.createElement('div');
@@ -605,13 +528,11 @@
                     emoji.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
                     emoji.style.animationDuration = (Math.random() * 0.5 + 1.5) + 's';
                     document.body.appendChild(emoji);
-                    
                     setTimeout(() => emoji.remove(), 2500);
                 }, i * 150);
             }
         }
 
-        // ========== CLICK FIREWORKS HEART EXPLOSION ==========
         function createHeartFireworks(x, y) {
             const mainHeart = document.createElement('div');
             mainHeart.className = 'fireworks-heart';
@@ -644,14 +565,11 @@
                 particle.style.animation = `particleFly ${Math.random() * 0.5 + 1}s ease-out forwards, particleGlow ${Math.random() * 0.5 + 1}s ease-out forwards`;
                 particle.style.animationDelay = (i * 0.04) + 's';
                 document.body.appendChild(particle);
-
                 setTimeout(() => particle.remove(), 1500);
             }
-
             setTimeout(() => mainHeart.remove(), 600);
         }
 
-        // ========== MUSIC CONTROL ==========
         const musicBtn = document.getElementById('musicBtn');
         const bgMusic = document.getElementById('bg-music');
         let isPlaying = false;
@@ -669,35 +587,30 @@
             isPlaying = !isPlaying;
         });
 
-        // ========== PAGE LOAD ==========
         window.addEventListener('load', () => {
             createStars();
-            
-            // Create epic opening fireworks
-            setTimeout(() => {
-                createOpeningFireworks();
-            }, 300);
+            setTimeout(() => { createOpeningFireworks(); }, 300);
 
-            // Create floating emojis after fireworks
-            setTimeout(() => {
+            const revealOverlay = document.getElementById('revealOverlay');
+            const container = document.querySelector('.container');
+
+            revealOverlay.addEventListener('click', () => {
+                revealOverlay.classList.add('hidden');
+                container.classList.add('show');
                 createFloatingEmojis();
-            }, 2500);
+            });
 
-            // Create more floating emojis periodically
-            setInterval(() => {
-                if (Math.random() > 0.6) {
-                    createFloatingEmojis();
-                }
-            }, 4000);
+            setTimeout(() => {
+                setInterval(() => {
+                    if (Math.random() > 0.6) { createFloatingEmojis(); }
+                }, 4000);
+            }, 3000);
         });
 
-        // Click anywhere to create heart fireworks
         document.addEventListener('click', (e) => {
             if (e.target.id !== 'musicBtn' && !e.target.classList.contains('photo-frame')) {
                 createHeartFireworks(e.clientX, e.clientY);
-                setTimeout(() => {
-                    createFloatingEmojis();
-                }, 200);
+                setTimeout(() => { createFloatingEmojis(); }, 200);
             }
         });
     </script>
