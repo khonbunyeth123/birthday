@@ -1,9 +1,12 @@
+<?php
+$name = "Bunyeth";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Bunyeth</title>
+    <title>Happy Birthday <?php echo $name; ?></title>
     <style>
         * {
             margin: 0;
@@ -414,7 +417,7 @@
         <div class="final-message">
             <p class="final-text">
                 Happy Birthday<br>
-                <span class="name-highlight">BUNYETH!</span><br>
+                <span class="name-highlight"><?php echo strtoupper($name); ?>!</span><br>
                 <span style="font-size: 1.6rem;">🎉💖✨</span>
             </p>
         </div>
