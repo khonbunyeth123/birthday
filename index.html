@@ -488,7 +488,7 @@
 
     <!-- Music Button -->
     <button class="music-btn" id="musicBtn">🎵 Play</button>
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="auto">
         <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
     </audio>
 
@@ -660,12 +660,16 @@
 
         musicBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            
             if (isPlaying) {
                 bgMusic.pause();
                 musicBtn.textContent = '🎵 Play';
                 musicBtn.classList.remove('playing');
                 isPlaying = false;
             } else {
+                bgMusic.volume = 0.5;
+                bgMusic.currentTime = 0;
+                
                 const playPromise = bgMusic.play();
                 if (playPromise !== undefined) {
                     playPromise
@@ -675,8 +679,8 @@
                             isPlaying = true;
                         })
                         .catch(error => {
-                            console.log('Audio play failed:', error);
-                            alert('Music playback failed. Check your connection.');
+                            console.log('Audio play error:', error);
+                            musicBtn.textContent = '🎵 Click to Play';
                         });
                 }
             }
