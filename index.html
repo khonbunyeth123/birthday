@@ -658,17 +658,28 @@
         const bgMusic = document.getElementById('bg-music');
         let isPlaying = false;
 
-        musicBtn.addEventListener('click', () => {
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             if (isPlaying) {
                 bgMusic.pause();
                 musicBtn.textContent = '🎵 Play';
                 musicBtn.classList.remove('playing');
+                isPlaying = false;
             } else {
-                bgMusic.play();
-                musicBtn.textContent = '🎵 Playing';
-                musicBtn.classList.add('playing');
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            musicBtn.textContent = '🎵 Playing';
+                            musicBtn.classList.add('playing');
+                            isPlaying = true;
+                        })
+                        .catch(error => {
+                            console.log('Audio play failed:', error);
+                            alert('Music playback failed. Check your connection.');
+                        });
+                }
             }
-            isPlaying = !isPlaying;
         });
 
         // ========== PAGE LOAD ==========
